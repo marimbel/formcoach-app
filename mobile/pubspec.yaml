@@ -1,0 +1,30 @@
+name: formcoach
+description: Real-time AI fitness coach - CS 663 Project 2, Group 1.
+publish_to: none
+version: 1.0.0+1
+
+environment:
+  sdk: ">=3.4.0 <4.0.0"
+
+dependencies:
+  flutter:
+    sdk: flutter
+  camera: ^0.11.0                       # live frames
+  google_mlkit_pose_detection: ^0.16.1  # Model C (BlazePose, on device)
+  google_mlkit_commons: any             # InputImage types (version pinned by the pose package)
+  tflite_flutter: ^0.12.1               # Model A (on device)
+  image: ^4.2.0                         # crop -> JPEG for Gemini
+  http: ^1.2.0                          # backend (Model B + D)
+  flutter_tts: ^4.0.2                   # spoken cues
+  path_provider: ^2.1.3                 # session logs for evaluation
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^4.0.0
+
+flutter:
+  uses-material-design: true
+  assets:
+    - assets/config/
+    - assets/models/

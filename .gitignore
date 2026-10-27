@@ -1,0 +1,16 @@
+# Flutter
+mobile/.dart_tool/
+mobile/build/
+mobile/.flutter-plugins*
+mobile/.packages
+mobile/ios/Pods/
+mobile/ios/.symlinks/
+mobile/assets/models/*.tflite
+# Python
+__pycache__/
+*.pyc
+.venv/
+# eval
+eval_logs/
+eval_out/
+backend/static/trainer/candidates/
