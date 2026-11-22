@@ -7,12 +7,11 @@ every member**, so each person should commit and push their own area from their 
 ## Suggested ownership (swap freely)
 | Member | Owns | Also |
 |---|---|---|
-| Marianna | Model A: data pipeline (`01`–`05`), training on Colab, Model A eval + data card | recording sessions |
-| Joshua | Flutter app: camera, pose overlay, rep counting, UI, TTS, platform builds | Model C reliability tests |
-| Brent | Backend on Cloud Run + Model B: situations, tuning job, base-vs-tuned eval | GCP project/billing |
-| Nico | Model D (prompts, pre-generated images, D eval) + full-system evaluation + demo video | report assembly |
+| Marianna | Model A: data pipeline (`01`–`05`), training on Colab, Model A eval + data card; Model A in the app | recording sessions, chest-press pose check |
+| Brent | Backend on Cloud Run + Model B: situations, tuning job, base-vs-tuned eval | GCP project/billing; Model C reliability + latency tests |
+| Nico | Flutter app (camera, pose overlay, UI, platform builds) + Model D + full-system evaluation + demo video | report assembly, app screenshots |
 
-**Everyone:** records data, reviews ~¼ of the Gemini targets, rates the blind A/B sheet, runs test sets.
+**Everyone:** records data, reviews ~⅓ of the Gemini targets, rates the blind A/B sheet, runs test sets.
 
 ## Weeks
 | Week | Dates | Goals | Done when |
