@@ -1,0 +1,12 @@
+# Flutter / Dart
+.dart_tool/
+.flutter-plugins
+.flutter-plugins-dependencies
+.packages
+.pub-cache/
+.pub/
+/build/
+*.iml
+.idea/
+# Model A weights are copied in from formcoach-models, not committed
+assets/models/*.tflite

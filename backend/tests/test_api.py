@@ -87,7 +87,7 @@ def test_base_model_uses_json_mode():
     api = TestClient(create_app(settings(), client=client))
     r = api.post("/v1/coach", json={"situation": SITUATION, "model": "base"})
     assert r.json()["source"] == "gemini-base"
-    assert m.calls[0].model == "gemini-2.5-flash"
+    assert m.calls[0].model == "gemini-3.5-flash"
     assert m.calls[0].config.response_mime_type == "application/json"
 
 
@@ -145,3 +145,23 @@ def test_trainer_generate_then_cache_then_static(tmp_path):
     api2 = TestClient(create_app(settings(static_dir=str(tmp_path)), client=client2))
     r3 = api2.post("/v1/trainer-image", json=req).json()
     assert r3["source"] == "static" and base64.b64decode(r3["image_b64"]) == b"PNGSTATIC"
+
+
+def test_thinking_level_sent_and_dropped_when_rejected():
+    client, m = fake_client(text=GOOD)
+    TestClient(create_app(settings(), client=client)).post("/v1/coach", json={"situation": SITUATION})
+    assert str(m.calls[0].config.thinking_config.thinking_level).lower().endswith("minimal")
+
+    class Picky(FakeModels):
+        async def generate_content(self, model, contents, config):
+            if config.thinking_config is not None:
+                self.calls.append(None)
+                raise ValueError("thinking_config is not supported for this tuned model")
+            return await super().generate_content(model, contents, config)
+
+    pm = Picky(text=GOOD)
+    api = TestClient(create_app(settings(), client=SimpleNamespace(aio=SimpleNamespace(models=pm))))
+    r = api.post("/v1/coach", json={"situation": SITUATION})
+    assert r.json()["source"] == "gemini-tuned"
+    api.post("/v1/coach", json={"situation": SITUATION})
+    assert pm.calls.count(None) == 1  # rejected once, then never sent again

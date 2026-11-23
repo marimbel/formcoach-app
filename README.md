@@ -50,7 +50,8 @@ your Vertex AI quota, so don't commit the key. Set a billing budget alert.
 |---|---|
 | `DEFAULT_COACH` | `tuned` \| `base` \| `mock` (the app can override per session for base-vs-tuned demos) |
 | `TUNED_MODEL` | tuned endpoint from `formcoach-models/runs/gemini/tuning_job.json` |
-| `BASE_MODEL` / `IMAGE_MODEL` | defaults `gemini-2.5-flash` / `gemini-2.5-flash-image`; check they are still offered |
+| `BASE_MODEL` / `IMAGE_MODEL` | defaults `gemini-3.5-flash` / `gemini-3.1-flash-image` (Gemini 2.5 was shut down on Vertex AI on Oct 20, 2026) |
+| `THINKING_LEVEL` | `minimal` (fastest replies); `low`/`medium`/`high`, or empty to not send it |
 | `COACH_TIMEOUT_S` | after this the backend answers with the rule-based fallback (default 6) |
 | `SEND_IMAGE_TO_GEMINI` | send the 224 px bottom-of-rep crop with the evidence (default true) |
 

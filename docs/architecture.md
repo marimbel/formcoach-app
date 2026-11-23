@@ -32,7 +32,7 @@ flowchart TD
 
 | | Model A | Model B | Model C | Model D |
 |---|---|---|---|---|
-| **Model** | MobileNetV3-Large, ImageNet weights, new 13-way softmax head | Gemini 2.5 Flash (check current tunable list) + supervised fine-tuning (LoRA adapter) | ML Kit Pose Detection (BlazePose, base model), stream mode | Gemini 2.5 Flash Image |
+| **Model** | MobileNetV3-Large, ImageNet weights, new 13-way softmax head | Gemini 3.5 Flash + supervised fine-tuning (LoRA adapter) | ML Kit Pose Detection (BlazePose, base model), stream mode | Gemini 3.1 Flash Image |
 | **Purpose** | Judges *appearance* of the body at the bottom of a rep → which form error | Turns all evidence into one safe, specific coaching decision; resolves uncertainty and contradictions; writes the illustration prompt | Finds body joints so we can count reps, find the bottom frame, crop the person and measure angles | Shows what correct form looks like for the detected error |
 | **Input** | 224×224 RGB body crop (0–255) | Evidence JSON + bottom-of-rep crop (JPEG) | Camera frame + rotation | Text prompt (exercise, error, Gemini's `visual_prompt`); never the user's photo |
 | **Output** | Probabilities over `exercise__error` classes, masked to the selected exercise | JSON `{action, error, cue, explanation, severity, visual_prompt}` | 33 (x, y, likelihood) landmarks | PNG illustration |

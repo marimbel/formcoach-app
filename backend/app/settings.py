@@ -15,9 +15,12 @@ class Settings:
     location: str = field(default_factory=lambda: os.getenv("GOOGLE_CLOUD_LOCATION", "us-central1"))
     # Model B: tuned endpoint "projects/.../locations/.../endpoints/..." from 08_tune_gemini.py
     tuned_model: str = field(default_factory=lambda: os.getenv("TUNED_MODEL", ""))
-    base_model: str = field(default_factory=lambda: os.getenv("BASE_MODEL", "gemini-2.5-flash"))
+    # Gemini 2.5 models were shut down on Vertex AI on Oct 20, 2026; 3.5 Flash is the tunable replacement.
+    base_model: str = field(default_factory=lambda: os.getenv("BASE_MODEL", "gemini-3.5-flash"))
+    # "minimal" | "low" | "medium" | "high"; "" = don't send a thinking setting
+    thinking_level: str = field(default_factory=lambda: os.getenv("THINKING_LEVEL", "minimal"))
     # Model D: pretrained image generator
-    image_model: str = field(default_factory=lambda: os.getenv("IMAGE_MODEL", "gemini-2.5-flash-image"))
+    image_model: str = field(default_factory=lambda: os.getenv("IMAGE_MODEL", "gemini-3.1-flash-image"))
     # "tuned" | "base" | "mock" (mock = rule-based drafts, no GCP needed: for app development)
     default_coach: str = field(default_factory=lambda: os.getenv("DEFAULT_COACH", "tuned"))
     api_key: str = field(default_factory=lambda: os.getenv("API_KEY", ""))
