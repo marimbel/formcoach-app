@@ -16,7 +16,8 @@ dependencies:
   image: ^4.2.0                         # crop -> JPEG for Gemini
   http: ^1.2.0                          # backend (Model B + D)
   flutter_tts: ^4.0.2                   # spoken cues
-  path_provider: ^2.1.3                 # session logs for evaluation
+  path_provider: ^2.1.3                 # session logs for evaluation + History
+  shared_preferences: ^2.3.2            # Settings tab
 
 dev_dependencies:
   flutter_test:

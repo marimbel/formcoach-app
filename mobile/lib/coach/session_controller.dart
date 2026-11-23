@@ -33,6 +33,7 @@ class SessionController extends ChangeNotifier {
   final ExerciseConfig ex;
   final FormClassifier? classifier;
   final String coachModel; // tuned | base | mock
+  final bool preferFrontCamera;
   final CoachClient coach;
   final PoseService _pose = PoseService();
   final FlutterTts _tts = FlutterTts();
@@ -53,6 +54,8 @@ class SessionController extends ChangeNotifier {
   Size? uprightSize;
   bool needsReposition = false;
   bool coachBusy = false;
+  bool paused = false;
+  bool audioEnabled;
   CoachReply? lastReply;
   String? cameraError;
 
@@ -72,6 +75,8 @@ class SessionController extends ChangeNotifier {
     required this.classifier,
     required this.coachModel,
     required String scenario,
+    this.audioEnabled = true,
+    this.preferFrontCamera = true,
     CoachClient? coachClient,
   }) : coach = coachClient ?? CoachClient() {
     counter = RepCounter(top: ex.top, bottomEnter: ex.bottomEnter, minRepSeconds: ex.minRepSeconds);
@@ -99,8 +104,9 @@ class SessionController extends ChangeNotifier {
     try {
       _cameras = await availableCameras();
       if (_cameras.isEmpty) throw CameraException('none', 'No camera found');
-      final front = _cameras.indexWhere((c) => c.lensDirection == CameraLensDirection.front);
-      _camIndex = front >= 0 ? front : 0;
+      final want = preferFrontCamera ? CameraLensDirection.front : CameraLensDirection.back;
+      final i = _cameras.indexWhere((c) => c.lensDirection == want);
+      _camIndex = i >= 0 ? i : 0;
       await _openCamera();
     } on CameraException catch (e) {
       cameraError = 'Camera unavailable: ${e.description ?? e.code}. Check camera permission in Settings.';
@@ -134,8 +140,27 @@ class SessionController extends ChangeNotifier {
     await _openCamera();
   }
 
+  /// Pause stops judging and speaking; the camera preview keeps running.
+  void pause() {
+    paused = true;
+    _tts.stop();
+    _notify();
+  }
+
+  void resume() {
+    paused = false;
+    _smoother = PoseSmoother(); // don't smooth across the gap
+    _notify();
+  }
+
+  void setAudio(bool on) {
+    audioEnabled = on;
+    if (!on) _tts.stop();
+    _notify();
+  }
+
   Future<void> _onFrame(CameraImage image) async {
-    if (_busy || _disposed) return;
+    if (_busy || _disposed || paused) return;
     _busy = true;
     try {
       final c = controller;
@@ -267,7 +292,7 @@ class SessionController extends ChangeNotifier {
     } else if (!cooldownOk && r.severity != 'high') {
       return;
     }
-    _tts.speak(r.cue);
+    if (audioEnabled) _tts.speak(r.cue);
     _lastSpokeAt = now;
     if (r.action == 'coach') HapticFeedback.mediumImpact();
   }
@@ -276,6 +301,7 @@ class SessionController extends ChangeNotifier {
     if (t - _lastRepositionAt < 6) return;
     _lastRepositionAt = t;
     log.repositionPrompts++;
+    if (!audioEnabled) return;
     _tts.speak(ex.id == 'chest_press'
         ? 'Move the phone so both arms are visible.'
         : 'Step back so I can see your whole body.');

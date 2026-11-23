@@ -27,20 +27,32 @@ class PosePainter extends CustomPainter {
     if (p == null || img == null) return;
     final sx = size.width / img.width, sy = size.height / img.height;
     Offset o(Lm l) => Offset(mirror ? size.width - l.x * sx : l.x * sx, l.y * sy);
+    const good = Color(0xFF5BE38F), bad = Color(0xFFFF4D4D);
     final bone = Paint()
-      ..color = Colors.white.withValues(alpha: 0.85)
-      ..strokeWidth = 4
+      ..strokeWidth = 5
       ..strokeCap = StrokeCap.round;
     for (final e in _edges) {
       if (p[e[0]].v < visThresh || p[e[1]].v < visThresh) continue;
+      // a bone turns red when both of its joints are part of the current error
+      bone.color = highlight.contains(e[0]) && highlight.contains(e[1]) ? bad : good.withValues(alpha: 0.9);
       canvas.drawLine(o(p[e[0]]), o(p[e[1]]), bone);
     }
+    final ring = Paint()..color = Colors.white;
     for (var i = 11; i < 33; i++) {
       final l = p[i];
       final hidden = l.v < visThresh;
-      if (hidden && !requiredJoints.contains(i)) continue;
-      final color = hidden ? Colors.redAccent : (highlight.contains(i) ? Colors.amber : Colors.lightGreenAccent);
-      canvas.drawCircle(o(l), highlight.contains(i) ? 9 : 6, Paint()..color = color);
+      if (hidden && !requiredJoints.contains(i)) continue; // missing required joints show as hollow red
+      final hot = highlight.contains(i);
+      final r = hot ? 9.0 : 6.0;
+      if (hidden) {
+        canvas.drawCircle(o(l), r, Paint()
+          ..color = bad
+          ..style = PaintingStyle.stroke
+          ..strokeWidth = 2.5);
+        continue;
+      }
+      canvas.drawCircle(o(l), r + 2, ring);
+      canvas.drawCircle(o(l), r, Paint()..color = hot ? bad : good);
     }
   }
 
