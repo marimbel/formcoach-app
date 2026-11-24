@@ -12,7 +12,7 @@ and coaches you out loud after each rep. Four models work together (details in `
 | B | Gemini 3.5 Flash (fine-tuned) | evidence → one coaching decision: speak, praise, hold, or ask to reposition | Vertex AI via Cloud Run |
 | D | Gemini 3.1 Flash Image (pretrained) | illustration of the corrected form | Vertex AI via Cloud Run |
 
-Model development (training, fine-tuning, evaluation) is in **formcoach-models** (repository 2).
+Model development (training, fine-tuning, evaluation) is in **formcoach-models** ([repository 2](https://github.com/marimbel/formcoach-models)).
 📄 Documentation report: *(link the PDF here)* · 🎥 Demo video: *(YouTube link)*
 
 ## The app
