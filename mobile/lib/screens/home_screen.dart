@@ -48,17 +48,13 @@ class _HomeScreenState extends State<HomeScreen> {
     final name = widget.settings.profileName;
     return SafeArea(
       child: ListView(
-        padding: const EdgeInsets.fromLTRB(20, 28, 20, 24),
+        padding: const EdgeInsets.fromLTRB(16, 24, 16, 24),
         children: [
-          Text('AI Fitness Coach',
-              textAlign: TextAlign.center,
-              style: t.headlineMedium?.copyWith(color: cs.primary, fontWeight: FontWeight.w700)),
-          const SizedBox(height: 8),
+          Text(name.isEmpty ? 'AI Fitness Coach' : 'Hi $name',
+              style: t.headlineMedium?.copyWith(fontWeight: FontWeight.w700, letterSpacing: -0.4)),
+          const SizedBox(height: 6),
           Text(
-            name.isEmpty
-                ? 'Get real-time feedback on your form and improve your workouts.'
-                : 'Hi $name! Get real-time feedback on your form and improve your workouts.',
-            textAlign: TextAlign.center,
+            'Choose an exercise. FormCoach counts your reps and coaches your form out loud.',
             style: t.bodyMedium?.copyWith(color: cs.onSurfaceVariant),
           ),
           const SizedBox(height: 24),
@@ -108,12 +104,17 @@ class _ExerciseCard extends StatelessWidget {
         child: InkWell(
           onTap: onTap,
           child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 14),
+            padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 12),
             child: Row(children: [
-              ExerciseFigure(exercise: ex.id, size: 72),
-              const SizedBox(width: 18),
+              ExerciseFigure(exercise: ex.id, size: 56),
+              const SizedBox(width: 14),
               Expanded(
-                child: Text(_shortName(ex), style: const TextStyle(fontSize: 19, fontWeight: FontWeight.w600)),
+                child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+                  Text(_shortName(ex), style: const TextStyle(fontSize: 18, fontWeight: FontWeight.w600)),
+                  const SizedBox(height: 2),
+                  Text('${ex.errors.length - 1} form checks',
+                      style: TextStyle(fontSize: 13, color: cs.onSurfaceVariant)),
+                ]),
               ),
               Icon(selected ? Icons.check_circle : Icons.chevron_right, color: selected ? cs.primary : cs.onSurfaceVariant),
             ]),

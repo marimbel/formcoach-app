@@ -30,6 +30,8 @@ void main() {
     expect(s.feedbackTitle, 'Good effort!');
     expect(s.feedbackBody, startsWith('Try to keep your knees aligned with your feet and '));
     expect(formatSessionDate(DateTime(2026, 11, 14, 10, 32)), 'November 14, 2026  10:32 AM');
+    expect(s.formScore, 67); // 8 good of 12 judged
+    expect(s.scoreLabel, 'Fair');
   });
 
   test('empty and perfect sessions', () {
@@ -38,5 +40,8 @@ void main() {
     expect(perfect.issueReps, 0);
     expect(perfect.mostCommon, isNull);
     expect(perfect.feedbackTitle, 'Great work!');
+    expect(perfect.formScore, 100);
+    expect(perfect.scoreLabel, 'Excellent');
+    expect(SessionStats.fromLog({'exercise': 'lunge', 'reps': []}).hasScore, isFalse);
   });
 }

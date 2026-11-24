@@ -8,6 +8,7 @@ import '../models/form_errors.dart';
 import '../models/session_stats.dart';
 import '../theme.dart';
 import '../widgets/exercise_figure.dart';
+import '../widgets/score_ring.dart';
 import 'trainer_screen.dart';
 
 /// Mockup screen 4: Session Summary. Used after a session and when opening one from History.
@@ -29,14 +30,23 @@ class SessionSummaryScreen extends StatelessWidget {
         Text(formatSessionDate(st.started),
             textAlign: TextAlign.center, style: t.bodyMedium?.copyWith(color: Theme.of(context).colorScheme.onSurfaceVariant)),
         const SizedBox(height: 12),
-        Container(
-          padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
-          decoration: BoxDecoration(color: fc.successSoft, borderRadius: BorderRadius.circular(16)),
-          child: Row(children: [
-            ExerciseFigure(exercise: st.exercise, size: 52),
-            const SizedBox(width: 16),
-            Text(exerciseName(st.exercise), style: t.titleLarge?.copyWith(fontWeight: FontWeight.w700)),
-          ]),
+        Card(
+          child: Padding(
+            padding: const EdgeInsets.fromLTRB(16, 12, 16, 20),
+            child: Column(children: [
+              Row(children: [
+                ExerciseFigure(exercise: st.exercise, size: 44),
+                const SizedBox(width: 12),
+                Text(exerciseName(st.exercise), style: t.titleLarge?.copyWith(fontWeight: FontWeight.w700)),
+              ]),
+              if (st.hasScore) ...[
+                const SizedBox(height: 12),
+                ScoreRing(score: st.formScore, label: st.scoreLabel),
+                const SizedBox(height: 8),
+                Text('Form score · out of 100', style: t.bodySmall),
+              ],
+            ]),
+          ),
         ),
         const SizedBox(height: 12),
         Row(children: [
@@ -48,7 +58,7 @@ class SessionSummaryScreen extends StatelessWidget {
         ]),
         if (top != null) ...[
           const SizedBox(height: 20),
-          Text('Most Common Issue', style: t.titleMedium?.copyWith(fontWeight: FontWeight.w700)),
+          Text('Fix this first', style: t.titleMedium?.copyWith(fontWeight: FontWeight.w700)),
           const SizedBox(height: 8),
           Material(
             color: fc.dangerSoft,

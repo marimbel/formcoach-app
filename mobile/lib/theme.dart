@@ -5,8 +5,9 @@ const dangerRed = Color(0xFFD63B3B);
 
 /// Semantic colors not covered by ColorScheme (alert cards, stat numbers).
 class FcColors extends ThemeExtension<FcColors> {
-  final Color card, cardBorder, success, successSoft, danger, dangerSoft, info, infoSoft;
+  final Color card, cardBorder, success, successSoft, danger, dangerSoft, info, infoSoft, warning;
   const FcColors({
+    required this.warning,
     required this.card,
     required this.cardBorder,
     required this.success,
@@ -18,8 +19,9 @@ class FcColors extends ThemeExtension<FcColors> {
   });
 
   static const light = FcColors(
-    card: Color(0xFFF3F7F5),
-    cardBorder: Color(0xFFE1E9E5),
+    warning: Color(0xFFD99100),
+    card: Color(0xFFFFFFFF),
+    cardBorder: Color(0xFFE5E9E7),
     success: brandGreen,
     successSoft: Color(0xFFE6F3EC),
     danger: dangerRed,
@@ -28,6 +30,7 @@ class FcColors extends ThemeExtension<FcColors> {
     infoSoft: Color(0xFFE7F0FA),
   );
   static const dark = FcColors(
+    warning: Color(0xFFF2B33D),
     card: Color(0xFF1C2421),
     cardBorder: Color(0xFF2B3631),
     success: Color(0xFF5CC495),
@@ -53,7 +56,7 @@ ThemeData buildTheme(Brightness b) {
   final light = b == Brightness.light;
   final scheme = ColorScheme.fromSeed(seedColor: brandGreen, brightness: b).copyWith(
     primary: light ? brandGreen : const Color(0xFF5CC495),
-    surface: light ? Colors.white : const Color(0xFF121816),
+    surface: light ? const Color(0xFFF6F7F6) : const Color(0xFF121816),
   );
   final fc = light ? FcColors.light : FcColors.dark;
   return ThemeData(

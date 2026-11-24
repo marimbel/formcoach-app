@@ -36,6 +36,17 @@ class SessionStats {
     );
   }
 
+  /// Form score 0-100: the share of judged reps (good or flagged) with no form issue.
+  bool get hasScore => correctReps + issueReps > 0;
+  int get formScore => hasScore ? (100 * correctReps / (correctReps + issueReps)).round() : 0;
+  String get scoreLabel => formScore >= 85
+      ? 'Excellent'
+      : formScore >= 70
+          ? 'Good'
+          : formScore >= 50
+              ? 'Fair'
+              : 'Needs work';
+
   MapEntry<String, int>? get mostCommon => issues.isEmpty ? null : issues.first;
   List<MapEntry<String, int>> get otherIssues => issues.length > 1 ? issues.sublist(1) : const [];
 
