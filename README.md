@@ -2,7 +2,7 @@
 
 **CS 663 Project 2 · Group 1**: Marianna Belmares, Brent Paterson, Nico Savaides
 
-A phone app that watches squats, lunges and chest presses through the camera, counts reps, detects form errors,
+A phone app that watches squats, lunges and push-ups through the camera, counts reps, detects form errors,
 and coaches you out loud after each rep. Four models work together (details in `docs/architecture.md`):
 
 | | Model | Job | Runs on |

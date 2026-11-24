@@ -113,15 +113,29 @@ Map<String, double> frameFeatures(Pose33 p, String exercise) {
     if (facing == 0) facing = 1.0;
     f['knee_past_toe'] = shank > 1e-6 ? (p[knee].x - p[foot].x) * facing / shank : double.nan;
   }
-  if (exercise == 'chest_press') {
-    final el = jointAngle(p, lShoulder, lElbow, lWrist), er = jointAngle(p, rShoulder, rElbow, rWrist);
-    f['elbow_angle_left'] = el;
-    f['elbow_angle_right'] = er;
-    f['elbow_asymmetry_deg'] = (el - er).abs();
+  if (exercise == 'push_up') {
+    f['elbow_angle_left'] = jointAngle(p, lShoulder, lElbow, lWrist);
+    f['elbow_angle_right'] = jointAngle(p, rShoulder, rElbow, rWrist);
+    // upper arm vs torso: about 45 deg tucked, about 90 deg flared (best seen front/oblique)
     f['shoulder_abduction_left'] = jointAngle(p, lHip, lShoulder, lElbow);
     f['shoulder_abduction_right'] = jointAngle(p, rHip, rShoulder, rElbow);
-    final sw = _dist(p[lShoulder], p[rShoulder]);
-    f['wrist_height_diff'] = sw > 1e-6 ? (p[lWrist].y - p[rWrist].y).abs() / sw : double.nan;
+    final mkx = (p[lAnkle].x + p[rAnkle].x) / 2, mky = (p[lAnkle].y + p[rAnkle].y) / 2;
+    // straight body = 180
+    f['body_line_angle'] = angleDeg(msx, msy, mhx, mhy, mkx, mky);
+    // signed distance of the hips from the shoulder-ankle line, in body lengths, along the normal that points
+    // down the image (toward the floor): >0 hips sag, <0 hips piked up. Same formula as geometry.py.
+    final dx = mkx - msx, dy = mky - msy;
+    final body = math.sqrt(dx * dx + dy * dy);
+    if (body > 1e-6) {
+      var nx = -dy / body, ny = dx / body;
+      if (ny < 0 || (ny == 0 && nx < 0)) {
+        nx = -nx;
+        ny = -ny;
+      }
+      f['hip_sag'] = ((mhx - msx) * nx + (mhy - msy) * ny) / body;
+    } else {
+      f['hip_sag'] = double.nan;
+    }
   }
   return f;
 }

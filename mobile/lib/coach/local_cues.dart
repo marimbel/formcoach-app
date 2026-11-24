@@ -10,9 +10,9 @@ const _cues = {
   'lunge__knee_alignment': 'Keep your front knee above your ankle.',
   'lunge__forward_lean': 'Stay tall through your torso.',
   'lunge__insufficient_depth': 'Lower your back knee closer to the floor.',
-  'chest_press__elbow_flare': 'Tuck your elbows to about 45 degrees.',
-  'chest_press__uneven_arms': 'Press both arms at the same speed.',
-  'chest_press__partial_rom': 'Lower the weights all the way down.',
+  'push_up__hip_sag': "Squeeze your glutes so your hips don't drop.",
+  'push_up__elbow_flare': 'Tuck your elbows to about 45 degrees.',
+  'push_up__partial_rom': 'Lower your chest closer to the floor.',
 };
 
 CoachReply localReply(Map<String, dynamic> s, String source) {

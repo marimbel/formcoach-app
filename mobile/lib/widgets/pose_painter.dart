@@ -75,8 +75,8 @@ Set<int> jointsFor(String? error) {
     case 'elbow_flare':
     case 'partial_rom':
       return {13, 14};
-    case 'uneven_arms':
-      return {13, 14, 15, 16};
+    case 'hip_sag':
+      return {11, 12, 23, 24, 27, 28};
     default:
       return {};
   }

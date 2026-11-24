@@ -7,7 +7,7 @@ every member**, so each person should commit and push their own area from their 
 ## Suggested ownership (swap freely)
 | Member | Owns | Also |
 |---|---|---|
-| Marianna | Model A: data pipeline (`01`–`05`), training on Colab, Model A eval + data card; Model A in the app | recording sessions, chest-press pose check |
+| Marianna | Model A: data pipeline (`01`–`05`), training on Colab, Model A eval + data card; Model A in the app | recording sessions, push-up pose check |
 | Brent | Backend on Cloud Run + Model B: situations, tuning job, base-vs-tuned eval | GCP project/billing; Model C reliability + latency tests |
 | Nico | Flutter app (camera, pose overlay, UI, platform builds) + Model D + full-system evaluation + demo video | report assembly, app screenshots |
 
@@ -28,5 +28,6 @@ every member**, so each person should commit and push their own area from their 
 - **Too few participants** → Model A overfits. Mitigate: recruit early, two takes per clip, augmentations, report per-participant accuracy honestly.
 - **Gemini tuning model availability/quotas** change often → check the tunable model list in week 1; start the job early in week 4.
 - **iOS build** needs a Mac; if nobody has one, demo on Android and say so.
-- **Chest press pose quality** (lying down, arms crossing the body) may be poor → test in week 2; switch to a standing band press if needed and document it.
+- **Push-up pose quality** (body close to the floor, far-side limbs hidden in a pure side view) may be poor → film at about 45° from the side; check the reposition rate early.
+- **Exercise change**: push-up replaced the proposal's chest press because chest press has no public form data; say so in the report.
 - **Cloud costs**: set a billing budget alert; tuning a Flash model on a few hundred examples is usually cheap, but check pricing first.

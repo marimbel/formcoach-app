@@ -29,9 +29,9 @@ const _poses = <String, Map<String, Offset>>{
     'hip': Offset(47, 52), 'knee': Offset(68, 64), 'ankle': Offset(69, 88), 'toe': Offset(80, 90),
     'knee2': Offset(32, 80), 'ankle2': Offset(14, 84), 'toe2': Offset(8, 90),
   },
-  'chest_press': {
-    'head': Offset(14, 56), 'shoulder': Offset(26, 60), 'elbow': Offset(26, 44), 'wrist': Offset(28, 28),
-    'hip': Offset(58, 60), 'knee': Offset(74, 52), 'ankle': Offset(80, 76), 'toe': Offset(88, 78),
+  'push_up': {
+    'head': Offset(12, 58), 'shoulder': Offset(24, 64), 'elbow': Offset(36, 76), 'wrist': Offset(26, 88),
+    'hip': Offset(56, 70), 'knee': Offset(74, 76), 'ankle': Offset(90, 82), 'toe': Offset(94, 88),
   },
 };
 
@@ -54,11 +54,12 @@ class _FigurePainter extends CustomPainter {
       ..strokeWidth = 9 * s
       ..strokeCap = StrokeCap.round;
 
-    if (exercise == 'chest_press') {
-      final bench = Paint()..color = body.withValues(alpha: 0.35);
-      canvas.drawRRect(RRect.fromRectAndRadius(Rect.fromLTWH(10 * s, 64 * s, 56 * s, 6 * s), Radius.circular(3 * s)), bench);
-      canvas.drawLine(Offset(20 * s, 70 * s), Offset(20 * s, 90 * s), Paint()..color = bench.color..strokeWidth = 4 * s);
-      canvas.drawLine(Offset(56 * s, 70 * s), Offset(56 * s, 90 * s), Paint()..color = bench.color..strokeWidth = 4 * s);
+    if (exercise == 'push_up') {
+      final floor = Paint()
+        ..color = body.withValues(alpha: 0.35)
+        ..strokeWidth = 3 * s
+        ..strokeCap = StrokeCap.round;
+      canvas.drawLine(Offset(6 * s, 92 * s), Offset(96 * s, 92 * s), floor);
     }
     if (p.containsKey('knee2')) {
       canvas.drawLine(o('hip'), o('knee2'), limb);
@@ -72,11 +73,6 @@ class _FigurePainter extends CustomPainter {
     canvas.drawLine(o('shoulder'), o('elbow'), limb);
     canvas.drawLine(o('elbow'), o('wrist'), limb);
     canvas.drawCircle(o('head'), 7 * s, Paint()..color = body);
-    if (exercise == 'chest_press') {
-      final db = Paint()..color = accent;
-      canvas.drawRRect(
-          RRect.fromRectAndRadius(Rect.fromCenter(center: o('wrist'), width: 16 * s, height: 6 * s), Radius.circular(3 * s)), db);
-    }
     final joint = Paint()..color = accent;
     for (final k in ['knee', 'elbow', 'hip']) {
       canvas.drawCircle(o(k), 3.2 * s, joint);

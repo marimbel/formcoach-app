@@ -127,7 +127,7 @@ class _ExerciseCard extends StatelessWidget {
 String _shortName(ExerciseConfig ex) => switch (ex.id) {
       'squat' => 'Squat',
       'lunge' => 'Lunge',
-      'chest_press' => 'Chest Press',
+      'push_up' => 'Push-up',
       _ => ex.display,
     };
 
@@ -146,7 +146,7 @@ class _SetupSheet extends StatelessWidget {
           const SizedBox(height: 12),
           _step(context, Icons.phone_android, ex.cameraHint),
           _step(context, Icons.accessibility_new,
-              ex.id == 'chest_press' ? 'Start with your arms extended.' : 'Start standing tall.'),
+              ex.id == 'push_up' ? 'Start in a high plank, arms straight.' : 'Start standing tall.'),
           _step(context, Icons.volume_up_outlined, 'Feedback is spoken after each rep, so you don\'t need to watch the screen.'),
           const SizedBox(height: 16),
           FilledButton(onPressed: () => Navigator.pop(context, true), child: const Text("I'm ready")),

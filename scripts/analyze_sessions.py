@@ -27,7 +27,7 @@ from pathlib import Path
 ERRORS = {
     "squat": ["correct", "knee_valgus", "forward_lean", "insufficient_depth", "heel_lift"],
     "lunge": ["correct", "knee_alignment", "forward_lean", "insufficient_depth"],
-    "chest_press": ["correct", "elbow_flare", "uneven_arms", "partial_rom"],
+    "push_up": ["correct", "hip_sag", "elbow_flare", "partial_rom"],
 }
 
 

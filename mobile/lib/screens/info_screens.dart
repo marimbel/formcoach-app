@@ -54,9 +54,9 @@ class HelpScreen extends StatelessWidget {
   const HelpScreen({super.key});
 
   static const _faq = [
-    ('Set up the camera', 'Stand the phone up at hip height, 2–3 m away, so your whole body is in frame. For chest press, put it about 1.5 m away at bench height.'),
+    ('Set up the camera', 'Stand the phone up at hip height, 2–3 m away, so your whole body is in frame. For push-ups, put it on the floor about 2 m away, turned about 45° from your side.'),
     ('"I can\'t see you clearly"', 'Step back or move the phone until the skeleton covers your whole body. Bright, even light and fitted clothing help.'),
-    ('Reps aren\'t counted', 'Start each set standing tall (arms extended for chest press) and move through a full rep. Very fast or very shallow reps may be skipped.'),
+    ('Reps aren\'t counted', 'Start each set standing tall (in a high plank for push-ups) and move through a full rep. Very fast or very shallow reps may be skipped.'),
     ('No spoken feedback', 'Check that Audio Feedback is on in Settings, the speaker button on the camera screen isn\'t muted, and your phone isn\'t on silent.'),
     ('"Coach: offline"', 'The app couldn\'t reach the coaching server, so it used simple built-in cues. Check your internet connection.'),
     ('Privacy', 'Video stays on your phone. For coaching, only joint measurements and one small cropped image per rep are sent to the server.'),
@@ -105,7 +105,7 @@ class AboutScreen extends StatelessWidget {
       body: ListView(padding: const EdgeInsets.all(20), children: [
         Text('AI Fitness Coach', style: t.headlineSmall?.copyWith(color: cs.primary, fontWeight: FontWeight.w700)),
         const SizedBox(height: 6),
-        const Text('Real-time form feedback for squats, lunges and chest presses, using your phone\'s camera.'),
+        const Text('Real-time form feedback for squats, lunges and push-ups, using your phone\'s camera.'),
         const SizedBox(height: 20),
         Text('How it works', style: t.titleMedium?.copyWith(fontWeight: FontWeight.w700)),
         const SizedBox(height: 8),

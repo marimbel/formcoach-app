@@ -320,7 +320,7 @@ class _LiveScreenState extends State<LiveScreen> {
 String _name(ExerciseConfig ex) => switch (ex.id) {
       'squat' => 'Squat',
       'lunge' => 'Lunge',
-      'chest_press' => 'Chest Press',
+      'push_up' => 'Push-up',
       _ => ex.display,
     };
 

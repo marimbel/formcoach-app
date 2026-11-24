@@ -302,8 +302,8 @@ class SessionController extends ChangeNotifier {
     _lastRepositionAt = t;
     log.repositionPrompts++;
     if (!audioEnabled) return;
-    _tts.speak(ex.id == 'chest_press'
-        ? 'Move the phone so both arms are visible.'
+    _tts.speak(ex.id == 'push_up'
+        ? 'Move the phone so I can see you from head to heels.'
         : 'Step back so I can see your whole body.');
   }
 

@@ -73,6 +73,6 @@ String formatSessionDate(DateTime d) {
 String exerciseName(String id) => switch (id) {
       'squat' => 'Squat',
       'lunge' => 'Lunge',
-      'chest_press' => 'Chest Press',
+      'push_up' => 'Push-up',
       _ => id.replaceAll('_', ' '),
     };

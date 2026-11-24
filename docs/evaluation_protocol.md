@@ -17,7 +17,7 @@ correctness and clarity 1–5). Export the training/validation loss curves from 
 ## Model C (pretrained, not fine-tuned: test reliability)
 From session logs and short dedicated clips: pose fps, % of sessions with reposition prompts, and **rep-count
 accuracy** (counted vs. performed) per condition. Show screenshots of failure cases (occlusion, baggy clothes,
-lying down for chest press).
+push-ups filmed from directly behind the head).
 
 ## Model D (pretrained: judge outputs)
 For each of the 10 error types, generate 3 images. Two raters mark each: right exercise? shows the fix? anatomy
@@ -27,11 +27,11 @@ plausible? Report the % passing and show the worst ones.
 Each set: one performer, one exercise, one acted condition for the whole set (5–8 reps), with the scenario label
 typed on the Home screen first: `p11_squat_knee_valgus_dimlight_n8` (`n8` = reps actually performed).
 
-| Condition (`<condition>` token) | Squat | Lunge | Chest press |
+| Condition (`<condition>` token) | Squat | Lunge | Push-up |
 |---|---|---|---|
 | `bright` indoor | correct + each error | correct + each error | correct + each error |
 | `dimlight` | correct + 2 errors | correct + 1 error | correct + 1 error |
-| `outdoor` | correct + 1 error | correct + 1 error | – |
+| `outdoor` | correct + 1 error | correct + 1 error | correct + 1 error |
 | `clutter` (busy background / person walking behind) | correct + 1 error | – | – |
 | `occlusion` (chair blocking a leg/arm) | correct | correct | correct |
 | `far` (≈4 m) and `close` (≈1.2 m) | correct + 1 error | – | – |

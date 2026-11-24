@@ -38,23 +38,23 @@ const formErrors = <String, FormErrorInfo>{
     'Drop your back knee straight down',
     'Keep your torso tall',
   ]),
+  'hip_sag': FormErrorInfo('Hips sagging', 'Keep a straight line from head to heels', [
+    'Squeeze your glutes and brace your core',
+    'Keep your hips in line with your shoulders and heels',
+    'Look at the floor just ahead of your hands',
+    'Drop to your knees if you can\'t hold the line',
+  ]),
   'elbow_flare': FormErrorInfo('Elbows flaring out', 'Tuck your elbows to about 45 degrees', [
     'Keep elbows about 45° from your body',
-    'Lower the weights toward your mid-chest',
-    'Squeeze your shoulder blades together',
-    'Keep wrists stacked over elbows',
+    'Hands just wider than your shoulders',
+    'Point your elbows back, not out to the sides',
+    'Keep wrists under your shoulders',
   ]),
-  'uneven_arms': FormErrorInfo('Arms moving unevenly', 'Press both arms at the same speed', [
-    'Press both weights at the same speed',
-    'Keep the weights level with each other',
-    'Use a weight you can control on both sides',
-    'Pause briefly at the bottom',
-  ]),
-  'partial_rom': FormErrorInfo('Partial range of motion', 'Use your full range of motion', [
-    'Lower until your upper arms are level with your body',
-    'Press until your arms are straight',
+  'partial_rom': FormErrorInfo('Not going low enough', 'Lower your chest closer to the floor', [
+    'Bend your elbows to 90° or less',
+    'Lower until your chest is a fist above the floor',
+    'Push back up until your arms are straight',
     'Move slowly and under control',
-    'Lighten the weight if you can\'t reach full range',
   ]),
 };
 
@@ -77,10 +77,11 @@ const exerciseTips = <String, List<String>>{
     'Keep your torso tall',
     'Push through your front heel to stand',
   ],
-  'chest_press': [
+  'push_up': [
+    'Hands just wider than your shoulders',
+    'Straight line from head to heels',
     'Elbows about 45° from your body',
-    'Lower the weights to chest level',
-    'Press both arms evenly',
-    'Keep your back and feet steady',
+    'Lower until your elbows reach 90°',
+    'Push all the way back up',
   ],
 };
