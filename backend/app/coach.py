@@ -19,6 +19,7 @@ class CoachService:
         self.s = settings
         self.client = client  # google.genai.Client, or a fake in tests
         self._rng = random.Random()
+        self._no_thinking: dict[str, bool] = {}
 
     def _model_for(self, which: str) -> str | None:
         if which == "tuned":
@@ -33,13 +34,23 @@ class CoachService:
         if image:  # same order as the training examples: image, then evidence text
             parts.append(types.Part.from_bytes(data=image, mime_type="image/jpeg"))
         parts.append(types.Part.from_text(text=render_user_prompt(situation)))
-        cfg = dict(system_instruction=SYSTEM_INSTRUCTION, temperature=0.2, max_output_tokens=512,
-                   thinking_config=types.ThinkingConfig(thinking_budget=0))
+        cfg = dict(system_instruction=SYSTEM_INSTRUCTION, temperature=0.2, max_output_tokens=512)
         if json_mode:
             cfg["response_mime_type"] = "application/json"
+        contents = [types.Content(role="user", parts=parts)]
+        if self.s.thinking_level and not self._no_thinking.get(model):
+            try:
+                resp = await self.client.aio.models.generate_content(
+                    model=model, contents=contents,
+                    config=types.GenerateContentConfig(
+                        **cfg, thinking_config=types.ThinkingConfig(thinking_level=self.s.thinking_level)))
+                return resp.text or ""
+            except Exception as e:
+                if "thinking" not in str(e).lower():
+                    raise
+                self._no_thinking[model] = True  # this model rejects the setting; stop sending it
         resp = await self.client.aio.models.generate_content(
-            model=model, contents=[types.Content(role="user", parts=parts)],
-            config=types.GenerateContentConfig(**cfg))
+            model=model, contents=contents, config=types.GenerateContentConfig(**cfg))
         return resp.text or ""
 
     def _fallback(self, situation: dict, reason: str, latency=None, problems=None) -> CoachResponse:

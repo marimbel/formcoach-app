@@ -6,7 +6,7 @@ from typing import Literal
 
 from pydantic import BaseModel, Field
 
-Exercise = Literal["squat", "lunge", "chest_press"]
+Exercise = Literal["squat", "lunge", "push_up"]
 
 
 class PoseQuality(BaseModel):
