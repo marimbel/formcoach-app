@@ -5,7 +5,8 @@ The Android project files (`mobile/android/`) are already in the repo, with came
 permissions, text-to-speech access, minSdk 26 and portrait mode set up.
 
 ## One-time setup (Mac)
-1. **Install Flutter** (3.27 or newer): https://docs.flutter.dev/get-started/install/macos
+1. **Install Flutter** (3.50 or newer; the Android build uses Gradle 9.5 and Android Gradle Plugin 9.3, which older
+   Flutter versions can't build): https://docs.flutter.dev/get-started/install/macos
    then check it with `flutter doctor` in Terminal and fix anything marked ✗ for Android.
 2. **Install Android Studio**, open it, and finish the setup wizard (it installs the Android SDK).
 3. In Android Studio: **Settings → Plugins → Marketplace**, install **Flutter** (it also installs Dart), then restart.
@@ -48,6 +49,9 @@ training code) and the session-summary tests.
 | `minSdkVersion 21 cannot be smaller than version 26` | Already set to 26 in `android/app/build.gradle.kts`; run **Build → Clean Project** or `flutter clean`. |
 | Plugin asks for a newer `compileSdk` / NDK | Upgrade Flutter (`flutter upgrade`), or set `compileSdk = 36` / the NDK version it names in `android/app/build.gradle.kts`. |
 | "Your project's Android Gradle Plugin version is lower than…" warning | Raise the `com.android.application` version in `android/settings.gradle.kts` to the one Flutter suggests. |
+| "Your project's Gradle version (…) is lower than Flutter's minimum supported version" | Run `git pull` (the project is on Gradle 9.5). If your Flutter is newer still, run `flutter create --platforms android fc_template` in a scratch folder and copy the versions from its `android/` files. |
+| "Java/Gradle incompatibility" with a new Java version | Point Flutter at Java 21: install Temurin 21, then `flutter config --jdk-dir="$(/usr/libexec/java_home -v 21)"`. |
+| "No macOS desktop project configured" / "not configured to build on the web" / `dart:ffi` errors | You picked macOS or Chrome as the device. Pick an Android phone or emulator; `flutter config --no-enable-web --no-enable-macos-desktop` hides the others. |
 | Phone not listed | Unlock the phone, accept the USB debugging prompt, try another cable; run `flutter devices`. |
 
 ## iOS (optional, needs a Mac with Xcode)
